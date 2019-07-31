@@ -1,0 +1,37 @@
+<div class="full-screen page-content">
+  <div class="wrapper">
+    <img class="logo-img" src="./assets/img/logo.png" alt="">
+    <div class="text-wrapper">
+      <h1 class="title-text">
+        集抄综合平台
+      </h1>
+    </div>
+    <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="用户名不能为空!">
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input formControlName="userName" placeholder="用户名" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="密码不能为空!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input formControlName="password" placeholder="密码" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <label nz-checkbox formControlName="remember">
+            <span>Remember me</span>
+          </label>
+          <button nz-button class="login-form-button" [nzType]="'primary'">登录</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <div class="copy-right">
+      Copyright © 2019 ZhangHuan
+    </div>
+  </div>
+</div>
