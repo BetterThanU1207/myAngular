@@ -13,9 +13,18 @@ export class AuthenticationService {
   public currentUser: Observable<User>;
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User>(
-      JSON.parse(localStorage.getItem('currentUser'))
-    );
+    const dataObj = JSON.parse(localStorage.getItem('currentUser') || null);
+    let dataObjDatatoJson: User;
+    if (dataObj !== null) {
+      // 过期时间为1天
+      if (new Date().getTime() - dataObj.time > 1000 * 60 * 60 * 24) {
+        console.log('信息过期!');
+      } else {
+        // dataObjDatatoJson = JSON.parse(dataObj.data || null);
+        dataObjDatatoJson = dataObj.data;
+      }
+    }
+    this.currentUserSubject = new BehaviorSubject<User>(dataObjDatatoJson);
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -31,7 +40,11 @@ export class AuthenticationService {
       })
       .pipe(
         map(user => {
-          localStorage.setItem('currentUser', JSON.stringify(user));
+          const curTime = new Date().getTime();
+          localStorage.setItem(
+            'currentUser',
+            JSON.stringify({ data: user, time: curTime })
+          );
           this.currentUserSubject.next(user);
           return user;
         })

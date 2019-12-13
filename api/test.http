@@ -1,0 +1,25 @@
+@url=http://localhost:3000/api
+
+@jsonHeader=Content-Type: application/json
+
+###
+
+get {{url}}
+
+###注册
+post {{url}}/register
+{{jsonHeader}}
+
+{
+    "username": "user1",
+    "password": "123456"
+}
+
+###登录
+post {{url}}/login
+{{jsonHeader}}
+
+{
+    "username": "user1",
+    "password": "123456"
+}
